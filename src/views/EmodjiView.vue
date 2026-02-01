@@ -3,6 +3,7 @@
         :to="{name: 'Home'}"
     >На главную</router-link>
     <h1>Emodji</h1>
+    <input type="text" placeholder="Ввведите API ключ Gemini" v-model="apiKey">
     <input
         type="text"
         v-model="film"
@@ -24,7 +25,8 @@
             return {
                 film: '',
                 result: '',
-                isLoading: false
+                isLoading: false,
+                apiKey: ''
             }
         },
         computed: {
@@ -37,7 +39,7 @@
                 this.isLoading = true;
                 try {
                     const response = await axios.post(
-                        'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=AIzaSyDKisokgDj4HheDtGjAdoEoZIucnaqJUkE',
+                        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${this.apiKey}`,
                         {
                             "contents": [
                                 {
